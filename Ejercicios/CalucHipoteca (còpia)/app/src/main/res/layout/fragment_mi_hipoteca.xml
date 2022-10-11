@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primer Valor"/>
+    <EditText
+        android:id="@+id/second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Segundo Valor"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="48sp"
+            android:gravity="center"/>
+        <ProgressBar
+            android:id="@+id/calculando"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"/>
+    </FrameLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+        <Button
+            android:id="@+id/sumar"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            android:layout_margin="15px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/restar"
+            app:layout_constraintBottom_toTopOf="@id/multiplicar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Sumar"/>
+        <Button
+            android:id="@+id/restar"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dividir"
+            app:layout_constraintStart_toEndOf="@id/sumar"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="15px"
+            android:text="Restar"/>
+        <Button
+            android:id="@+id/multiplicar"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sumar"
+            app:layout_constraintEnd_toStartOf="@id/dividir"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="15px"
+            android:text="Multiplicar"/>
+        <Button
+            android:id="@+id/dividir"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            android:layout_margin="15px"
+            app:layout_constraintStart_toEndOf="@id/multiplicar"
+            app:layout_constraintTop_toBottomOf="@id/restar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Dividir"/>
+
+        <!--<Button
+            android:id="@+id/augmentarElContador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click me!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/contadorDeClics"/>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

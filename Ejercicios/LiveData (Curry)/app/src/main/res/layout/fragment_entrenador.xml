@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EntrenadorFragment">
+
+    <ImageView
+        android:id="@+id/fase"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/repeticion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="48sp"/>
+    <TextView
+        android:id="@+id/canasta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/canasta"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:text="WINNER"
+        android:gravity="bottom"
+        android:textSize="48sp"/>
+</FrameLayout>

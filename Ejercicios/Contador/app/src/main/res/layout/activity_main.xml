@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/cont_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/reset_all"
+        app:layout_constraintBottom_toTopOf="@id/reset_1"
+        />
+
+    <Button
+        android:id="@+id/reset_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET ALL"
+        app:layout_constraintStart_toEndOf="@id/cont_all"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reset_1"/>
+
+
+                <!-- Primera fila de botones -->
+
+    <TextView
+        android:id="@+id/cont_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@id/reset_all"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mas_1"
+        app:layout_constraintBottom_toTopOf="@id/cont_2"/>
+
+    <Button
+        android:id="@+id/mas_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+1"
+        app:layout_constraintStart_toEndOf="@id/cont_1"
+        app:layout_constraintTop_toBottomOf="@id/reset_all"
+        app:layout_constraintEnd_toStartOf="@id/reset_1"
+        app:layout_constraintBottom_toTopOf="@id/mas_2"/>
+    <Button
+        android:id="@+id/reset_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        app:layout_constraintStart_toEndOf="@id/mas_1"
+        app:layout_constraintTop_toBottomOf="@id/reset_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reset_2"/>
+
+    <!-- Segunda fila de botones -->
+
+    <TextView
+        android:id="@+id/cont_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@id/cont_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mas_2"
+        app:layout_constraintBottom_toTopOf="@id/cont_3"/>
+
+    <Button
+        android:id="@+id/mas_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+1"
+        app:layout_constraintStart_toEndOf="@id/cont_2"
+        app:layout_constraintTop_toBottomOf="@id/mas_1"
+        app:layout_constraintEnd_toStartOf="@id/reset_2"
+        app:layout_constraintBottom_toTopOf="@id/mas_3"/>
+    <Button
+        android:id="@+id/reset_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        app:layout_constraintStart_toEndOf="@id/mas_2"
+        app:layout_constraintTop_toBottomOf="@id/reset_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reset_3"/>
+
+    <!-- Tercera fila de botones -->
+
+    <TextView
+        android:id="@+id/cont_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@id/cont_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cont_4"
+        app:layout_constraintEnd_toStartOf="@id/mas_3"/>
+
+    <Button
+        android:id="@+id/mas_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+1"
+        app:layout_constraintStart_toEndOf="@id/cont_3"
+        app:layout_constraintTop_toBottomOf="@id/mas_2"
+        app:layout_constraintEnd_toStartOf="@id/reset_3"
+        app:layout_constraintBottom_toTopOf="@id/mas_4"/>
+    <Button
+        android:id="@+id/reset_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        app:layout_constraintStart_toEndOf="@id/mas_3"
+        app:layout_constraintTop_toBottomOf="@id/reset_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/reset_4"/>
+
+    <!-- Cuarta fila de botones -->
+
+    <TextView
+        android:id="@+id/cont_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        app:layout_constraintTop_toBottomOf="@id/cont_3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mas_4"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/mas_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+1"
+        app:layout_constraintStart_toEndOf="@id/cont_4"
+        app:layout_constraintTop_toBottomOf="@id/mas_3"
+        app:layout_constraintEnd_toStartOf="@id/reset_4"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@+id/reset_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RESET"
+        app:layout_constraintStart_toEndOf="@id/mas_4"
+        app:layout_constraintTop_toBottomOf="@id/reset_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
