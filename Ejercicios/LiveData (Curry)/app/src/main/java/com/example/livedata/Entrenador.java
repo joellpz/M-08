@@ -27,7 +27,7 @@ public class Entrenador {
                 @Override
                 public void run() {
                     if (repeticiones < 0) {
-                        repeticiones = 7;
+                        repeticiones = 6;
                         tiro = 1;
                     }
                     entrenadorListener.cuandoDeLaOrden("TIRO" + tiro + ":" + (repeticiones == 0 ? "CANASTA" : repeticiones));
