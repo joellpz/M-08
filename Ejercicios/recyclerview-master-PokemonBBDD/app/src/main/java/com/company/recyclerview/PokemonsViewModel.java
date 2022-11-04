@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
@@ -12,49 +13,31 @@ public class PokemonsViewModel extends AndroidViewModel {
 
     PokemonRepositorio pokemonRepositorio;
 
-    MutableLiveData<List<Pokemon>> listElementosMutableLiveData = new MutableLiveData<>();
-
     MutableLiveData<Pokemon> pokemonSeleccionado = new MutableLiveData<>();
 
     public PokemonsViewModel(@NonNull Application application) {
         super(application);
 
-        pokemonRepositorio = new PokemonRepositorio();
-
-        listElementosMutableLiveData.setValue(pokemonRepositorio.obtener());
+        pokemonRepositorio = new PokemonRepositorio(application);
+        pokemonRepositorio.meterPokemons();
     }
 
-    MutableLiveData<List<Pokemon>> obtener(){
-        return listElementosMutableLiveData;
+    LiveData<List<Pokemon>> obtener(){
+        return pokemonRepositorio.obtener();
     }
+
 
     void insertar(Pokemon pokemon){
-        pokemonRepositorio.insertar(pokemon, new PokemonRepositorio.Callback() {
-            @Override
-            public void cuandoFinalice(List<Pokemon> pokemons) {
-                listElementosMutableLiveData.setValue(pokemons);
-            }
-        });
+        pokemonRepositorio.insertar(pokemon);
     }
 
     void eliminar(Pokemon pokemon){
-        pokemonRepositorio.eliminar(pokemon, new PokemonRepositorio.Callback() {
-            @Override
-            public void cuandoFinalice(List<Pokemon> pokemons) {
-                listElementosMutableLiveData.setValue(pokemons);
-            }
-        });
+        pokemonRepositorio.eliminar(pokemon);
     }
 
     void actualizar(Pokemon pokemon, float valoracion){
-        pokemonRepositorio.actualizar(pokemon, valoracion, new PokemonRepositorio.Callback() {
-            @Override
-            public void cuandoFinalice(List<Pokemon> pokemons) {
-                listElementosMutableLiveData.setValue(pokemons);
-            }
-        });
+        pokemonRepositorio.actualizar(pokemon, valoracion);
     }
-
     void seleccionar(Pokemon elemento){
         pokemonSeleccionado.setValue(elemento);
     }

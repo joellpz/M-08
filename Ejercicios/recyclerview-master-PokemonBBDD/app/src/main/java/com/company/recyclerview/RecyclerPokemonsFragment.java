@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class  RecyclerElementosFragment extends Fragment {
+public class RecyclerPokemonsFragment extends Fragment {
 
     private FragmentRecyclerPokemonsBinding binding;
     private PokemonsViewModel pokemonsViewModel;

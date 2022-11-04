@@ -1,11 +1,68 @@
 package com.company.recyclerview;
 
-import java.util.ArrayList;
+import android.app.Application;
+
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class PokemonRepositorio {
-    PokemonRepositorio(){
-        pokemons.add(new Pokemon("bulbasaur", "Bulbasaur es un Pokémon de tipo planta/veneno introducido en la primera generación. Es uno de " +
+
+    Executor executor = Executors.newSingleThreadExecutor();
+    PokemonsBaseDeDatos.PokemonsDao pokemonsDao;
+
+    PokemonRepositorio(Application application){
+        pokemonsDao = PokemonsBaseDeDatos.obtenerInstancia(application).obtenerPokemonsDao();
+    }
+
+    LiveData<List<Pokemon>> obtener(){
+        return pokemonsDao.obtener();
+    }
+
+    void meterPokemons (){
+        //if (pokemonsDao.obtener().getValue() != null) {
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    pokemonsDao.meterPokemons();
+                }
+            });
+        //}
+    }
+    void insertar(Pokemon pokemon){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                pokemonsDao.insertar(pokemon);
+            }
+        });
+    }
+
+    void eliminar(Pokemon pokemon) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                pokemonsDao.eliminar(pokemon);
+            }
+        });
+    }
+
+    public void actualizar(Pokemon pokemon, float poder) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                pokemon.poder = poder;
+                pokemonsDao.actualizar(pokemon);
+            }
+        });
+    }
+}
+
+
+
+        /*pokemons.add(new Pokemon("bulbasaur", "Bulbasaur es un Pokémon de tipo planta/veneno introducido en la primera generación. Es uno de " +
                 "los Pokémon iniciales que pueden elegir los entrenadores que empiezan su aventura en la región Kanto, junto a Squirtle y Charmander " +
                 "(excepto en Pokémon Amarillo). Destaca por ser el primer Pokémon de la Pokédex Nacional y la en la Pokédex de Kanto.", "Placaje", "Gruñido", "Látigo cepa", "Drenadoras" ));
         pokemons.add(new Pokemon("charmander", "Charmander es un Pokémon de tipo fuego introducido en la primera generación. Es uno de los Pokémon iniciales que " +
@@ -19,32 +76,4 @@ public class PokemonRepositorio {
         pokemons.add(new Pokemon("jigglypuff","Jigglypuff es un Pokémon de tipo normal/hada3 introducido en la primera generación. Es la contraparte de Clefairy. A partir de la segunda generación es la evolución de Igglybuff. En la sexta generación se le añadió el tipo hada.",
                 "Canto", "Rizo defensa", "Destructor", "Esculpir"));
         pokemons.add(new Pokemon("meowth","Meowth es un Pokémon de tipo normal introducido en la primera generación, también a partir de la séptima generación posee una forma regional de tipo siniestro.",
-                "Arañazo", "Gruñido", "Mordisco", "Sorpresa"));
-    }
-
-
-    List<Pokemon> pokemons = new ArrayList<>();
-    interface Callback {
-        void cuandoFinalice(List<Pokemon> pokemons);
-
-    }
-
-    List<Pokemon> obtener() {
-        return pokemons;
-    }
-
-    void insertar(Pokemon pokemon, Callback callback){
-        pokemons.add(pokemon);
-        callback.cuandoFinalice(pokemons);
-    }
-
-    void eliminar(Pokemon pokemon, Callback callback) {
-        pokemons.remove(pokemon);
-        callback.cuandoFinalice(pokemons);
-    }
-
-    void actualizar(Pokemon pokemon, float valoracion, Callback callback) {
-        pokemon.poder = valoracion;
-        callback.cuandoFinalice(pokemons);
-    }
-}
+                "Arañazo", "Gruñido", "Mordisco", "Sorpresa"));*/

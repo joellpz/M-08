@@ -37,10 +37,10 @@ public class MostrarPokemonFragment extends Fragment {
                 binding.nombre.setText(pokemon.nombre.toUpperCase(Locale.ROOT));
                 binding.descripcion.setText(pokemon.descripcion);
                 binding.poder.setRating(pokemon.poder);
-                binding.atk1.setText(pokemon.ataques[0]);
-                binding.atk2.setText(pokemon.ataques[1]);
-                binding.atk3.setText(pokemon.ataques[2]);
-                binding.atk4.setText(pokemon.ataques[3]);
+                binding.atk1.setText(pokemon.atk1);
+                binding.atk2.setText(pokemon.atk2);
+                binding.atk3.setText(pokemon.atk3);
+                binding.atk4.setText(pokemon.atk4);
                 binding.image.setImageResource(getResources().getIdentifier(pokemon.nombre, "drawable", "com.company.recyclerview"));
 
 
