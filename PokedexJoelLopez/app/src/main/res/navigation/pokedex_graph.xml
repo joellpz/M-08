@@ -9,5 +9,10 @@
         android:id="@+id/pokedexMainFragment"
         android:name="com.example.pokedex.PokedexMainFragment"
         android:label="fragment_pokedex_main"
-        tools:layout="@layout/fragment_pokedex_main" />
+        tools:layout="@layout/fragment_pokedex_main" >
+        <action
+            android:id="@+id/action_pokedexMainFragment_to_nav_graph"
+            app:destination="@id/nav_graph" />
+    </fragment>
+    <include app:graph="@navigation/nav_graph" />
 </navigation>
