@@ -15,4 +15,18 @@
             app:destination="@id/nav_graph" />
     </fragment>
     <include app:graph="@navigation/nav_graph" />
+    <fragment
+        android:id="@+id/pokedexFragment"
+        android:name="com.example.pokedex.RecyclerPokedexFragment"
+        android:label="fragment_pokedex"
+        tools:layout="@layout/fragment_recycler_pokedex" >
+        <action
+            android:id="@+id/action_pokedexFragment_to_mostrarElementoFragment"
+            app:destination="@id/mostrarElementoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mostrarElementoFragment"
+        android:name="com.example.pokedex.MostrarElementoFragment"
+        android:label="fragment_mostrar_elemento"
+        tools:layout="@layout/fragment_mostrar_elemento" />
 </navigation>
