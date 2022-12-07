@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MostrarElementoFragment">
@@ -11,16 +16,31 @@
         android:id="@+id/nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="48sp"/>
+        android:textSize="48sp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <RatingBar
         android:id="@+id/valoracion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:numStars="5"/>
+        android:numStars="5"
+        app:layout_constraintTop_toBottomOf="@id/nombre"
+        app:layout_constraintStart_toStartOf="parent"/>
     <TextView
         android:id="@+id/descripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"/>
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/valoracion"/>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:srcCompat="@drawable/back_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

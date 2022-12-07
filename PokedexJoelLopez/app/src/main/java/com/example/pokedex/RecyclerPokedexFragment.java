@@ -32,6 +32,7 @@ public class RecyclerPokedexFragment extends Fragment {
 
     private FragmentRecyclerPokedexBinding binding;
     private ElementosViewModel elementosViewModel;
+    private NavController navController;
 
 
     @Override
@@ -44,6 +45,7 @@ public class RecyclerPokedexFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         elementosViewModel = new ViewModelProvider(requireActivity()).get(ElementosViewModel.class);
+        navController = Navigation.findNavController(view);
 
         // crear el Adaptador
         ElementosAdapter elementosAdapter = new ElementosAdapter();
@@ -110,6 +112,13 @@ public class RecyclerPokedexFragment extends Fragment {
                 }
             });
 
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    elementosViewModel.seleccionar(elemento);
+                    navController.navigate(R.id.action_recyclerPokedexFragment_to_mostrarElementoFragment);
+                }
+            });
 
         }
 

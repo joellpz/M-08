@@ -44,7 +44,7 @@ public class PokedexMainFragment extends Fragment {
                             case 0: default:
                                 return new HomeFragment();
                             case 1:
-                                return new RecyclerPokedexFragment();
+                                return new PokedexPreFragment();
                             case 2:
                                 return new AddNewFragment();
                         }

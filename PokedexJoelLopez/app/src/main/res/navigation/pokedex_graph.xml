@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pokedex_graph"
+    app:startDestination="@id/recyclerPokedexFragment">
+
+    <fragment
+        android:id="@+id/mostrarElementoFragment"
+        android:name="com.example.pokedex.MostrarElementoFragment"
+        android:label="fragment_mostrar_elemento"
+        tools:layout="@layout/fragment_mostrar_elemento" >
+        <action
+            android:id="@+id/action_mostrarElementoFragment2_to_recyclerPokedexFragment"
+            app:destination="@id/recyclerPokedexFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recyclerPokedexFragment"
+        android:name="com.example.pokedex.RecyclerPokedexFragment"
+        android:label="fragment_recycler_pokedex"
+        tools:layout="@layout/fragment_recycler_pokedex" >
+        <action
+            android:id="@+id/action_recyclerPokedexFragment_to_mostrarElementoFragment"
+            app:destination="@id/mostrarElementoFragment" />
+    </fragment>
+</navigation>
