@@ -44,4 +44,8 @@ public class PokemonsViewModel extends AndroidViewModel {
     MutableLiveData<Pokemon> seleccionado(){
         return pokemonSeleccionado;
     }
+
+    LiveData<List<Pokemon>> masValorados(){
+        return pokemonRepositorio.masValorados();
+    }
 }

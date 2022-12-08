@@ -1,11 +1,7 @@
 package com.example.pokedex;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.pokedex.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
 //T ODO Model-View-ViewModel Usarlo para acceso a datos.
 //T ODO RecyclerView (Interacción con el ViewHolder)
 //T ODO Usar Room para introducir y guardar datos.
-//TODO HACER FILTRO POR TIPO (CREAR VARIABLE TIPO DENTRO DE CADA POKEMON)
-//TODO PANTALLA DE USUARIO
-//TODO MIRAR SI HAY ALGUNA MANERA DE QUE EN EL FORMULARIO NO SE DESCUAJERINGUE TODO
+//T ODO HACER FILTRO POR PODER
+//T ODO PANTALLA DE USUARIO
+//T ODO MIRAR SI HAY ALGUNA MANERA DE QUE EN EL FORMULARIO NO SE DESCUAJERINGUE t odo

@@ -4,12 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -36,7 +34,7 @@ public class MostrarPokemonFragment extends Fragment {
         PokemonsViewModel elementosViewModel = new ViewModelProvider(requireActivity()).get(PokemonsViewModel.class);
         navController = Navigation.findNavController(view);
 
-        binding.btnBack.setOnClickListener(view1 -> navController.navigate(R.id.action_mostrarElementoFragment2_to_recyclerPokedexFragment));
+        binding.btnBack.setOnClickListener(view1 -> navController.navigate(R.id.action_recyclerPokedexFragment));
 
         elementosViewModel.seleccionado().observe(getViewLifecycleOwner(), pokemon -> {
             binding.nombre.setText(pokemon.nombre.toUpperCase(Locale.ROOT));

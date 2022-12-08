@@ -14,13 +14,6 @@ import android.view.ViewGroup;
 import com.example.pokedex.R;
 import com.example.pokedex.databinding.FragmentNuevoPokemonBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NuevoPokemonFragment# newInstance} factory method to
- * create an instance of this fragment.
- */
-
-
 public class NuevoPokemonFragment extends Fragment {
     private FragmentNuevoPokemonBinding binding;
 

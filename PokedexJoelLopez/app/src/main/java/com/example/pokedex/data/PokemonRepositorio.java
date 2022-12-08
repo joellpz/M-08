@@ -22,9 +22,7 @@ public class PokemonRepositorio {
     }
 
     void meterPokemons (){
-        //if (pokemonsDao.obtener().getValue() != null) {
         executor.execute(() -> pokemonsDao.meterPokemons());
-        //}
     }
     void insertar(Pokemon pokemon){
         executor.execute(() -> pokemonsDao.insertar(pokemon));
@@ -39,6 +37,10 @@ public class PokemonRepositorio {
             pokemon.poder = poder;
             pokemonsDao.actualizar(pokemon);
         });
+    }
+
+    LiveData<List<Pokemon>> masValorados() {
+        return pokemonsDao.masValorados();
     }
 }
 

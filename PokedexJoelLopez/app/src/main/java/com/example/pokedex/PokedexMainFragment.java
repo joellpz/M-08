@@ -13,7 +13,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.pokedex.databinding.FragmentPokedexMainBinding;
 import com.example.pokedex.data.NuevoPokemonFragment;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class PokedexMainFragment extends Fragment {

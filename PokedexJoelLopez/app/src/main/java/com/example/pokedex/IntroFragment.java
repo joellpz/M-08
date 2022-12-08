@@ -14,11 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.pokedex.databinding.FragmentIntroBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link IntroFragment# newInstance} factory method to
- * create an instance of this fragment.
- */
 public class IntroFragment extends Fragment {
 
     private FragmentIntroBinding binding;
@@ -35,12 +30,7 @@ public class IntroFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
 
-        binding.botonSiguiente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navController.navigate(R.id.action_introFragment_to_bienvenidoFragment);
-            }
-        });
+        binding.botonSiguiente.setOnClickListener(view1 -> navController.navigate(R.id.action_introFragment_to_bienvenidoFragment));
 
     }
 

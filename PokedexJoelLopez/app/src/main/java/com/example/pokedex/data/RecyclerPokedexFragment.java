@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 
 import com.example.pokedex.R;
 import com.example.pokedex.databinding.FragmentRecyclerPokedexBinding;
@@ -25,16 +24,11 @@ import com.example.pokedex.databinding.ViewholderPokemonBinding;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RecyclerPokedexFragment# newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RecyclerPokedexFragment extends Fragment {
 
 
     private FragmentRecyclerPokedexBinding binding;
-    private PokemonsViewModel pokemonsViewModel;
+    protected PokemonsViewModel pokemonsViewModel;
     private NavController navController;
 
 
@@ -55,9 +49,11 @@ public class RecyclerPokedexFragment extends Fragment {
 
         // asociar el Adaptador con el RecyclerView
         binding.recyclerView.setAdapter(pokemonsAdapter);
+        binding.btnPower.setOnClickListener(view1 -> navController.navigate(R.id.recyclerPoderFragment));
+        binding.btnId.setOnClickListener(view1 -> navController.navigate(R.id.recyclerPokedexFragment));
 
         // obtener el array de Elementos, y pasarselo al Adaptador
-        pokemonsViewModel.obtener().observe(getViewLifecycleOwner(), pokemonsAdapter::establecerLista);
+        obtenerPokemons().observe(getViewLifecycleOwner(), pokemonsAdapter::establecerLista);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
@@ -77,6 +73,9 @@ public class RecyclerPokedexFragment extends Fragment {
             }
         }).attachToRecyclerView(binding.recyclerView);
 
+    }
+    LiveData<List<Pokemon>> obtenerPokemons(){
+        return pokemonsViewModel.obtener();
     }
 
     class PokemonsAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
@@ -110,7 +109,7 @@ public class RecyclerPokedexFragment extends Fragment {
 
             holder.itemView.setOnClickListener(v -> {
                 pokemonsViewModel.seleccionar(pokemon);
-                navController.navigate(R.id.action_recyclerPokedexFragment_to_mostrarElementoFragment);
+                navController.navigate(R.id.action_mostrarElementoFragment);
             });
 
         }

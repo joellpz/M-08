@@ -10,17 +10,24 @@
         android:name="com.example.pokedex.data.MostrarPokemonFragment"
         android:label="fragment_mostrar_elemento"
         tools:layout="@layout/fragment_mostrar_pokemon" >
-        <action
-            android:id="@+id/action_mostrarElementoFragment2_to_recyclerPokedexFragment"
-            app:destination="@id/recyclerPokedexFragment" />
     </fragment>
     <fragment
         android:id="@+id/recyclerPokedexFragment"
         android:name="com.example.pokedex.data.RecyclerPokedexFragment"
         android:label="fragment_recycler_pokedex"
-        tools:layout="@layout/fragment_recycler_pokedex" >
-        <action
-            android:id="@+id/action_recyclerPokedexFragment_to_mostrarElementoFragment"
-            app:destination="@id/mostrarElementoFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_recycler_pokedex" />
+    <action
+        android:id="@+id/action_mostrarElementoFragment"
+        app:destination="@id/mostrarElementoFragment" />
+    <fragment
+        android:id="@+id/recyclerPoderFragment"
+        android:name="com.example.pokedex.data.RecyclerPoderFragment"
+        android:label="fragment_recycler_poder"
+        tools:layout="@layout/fragment_recycler_poder" />
+    <action
+        android:id="@+id/action_recyclerPokedexFragment"
+        app:destination="@id/recyclerPokedexFragment" />
+    <action
+        android:id="@+id/action_recyclerPoderFragment"
+        app:destination="@id/recyclerPoderFragment" />
 </navigation>
