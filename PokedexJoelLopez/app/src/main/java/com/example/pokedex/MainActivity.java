@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
 }
 //T ODO Navigation (usando NavController) 2 Pantallas minimo
 //T ODO Elementos de Menú (1 mínimo) Appbar, NavView,BottomNavView...
-//TODO Model-View-ViewModel Usarlo para acceso a datos.
-//TODO RecyclerView (Interacción con el ViewHolder)
-//TODO Usar Room para introducir y guardar datos.
+//T ODO Model-View-ViewModel Usarlo para acceso a datos.
+//T ODO RecyclerView (Interacción con el ViewHolder)
+//T ODO Usar Room para introducir y guardar datos.
+//TODO HACER FILTRO POR TIPO (CREAR VARIABLE TIPO DENTRO DE CADA POKEMON)
+//TODO PANTALLA DE USUARIO
+//TODO MIRAR SI HAY ALGUNA MANERA DE QUE EN EL FORMULARIO NO SE DESCUAJERINGUE TODO

@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/mostrarElementoFragment"
-        android:name="com.example.pokedex.MostrarElementoFragment"
+        android:name="com.example.pokedex.data.MostrarPokemonFragment"
         android:label="fragment_mostrar_elemento"
-        tools:layout="@layout/fragment_mostrar_elemento" >
+        tools:layout="@layout/fragment_mostrar_pokemon" >
         <action
             android:id="@+id/action_mostrarElementoFragment2_to_recyclerPokedexFragment"
             app:destination="@id/recyclerPokedexFragment" />
     </fragment>
     <fragment
         android:id="@+id/recyclerPokedexFragment"
-        android:name="com.example.pokedex.RecyclerPokedexFragment"
+        android:name="com.example.pokedex.data.RecyclerPokedexFragment"
         android:label="fragment_recycler_pokedex"
         tools:layout="@layout/fragment_recycler_pokedex" >
         <action

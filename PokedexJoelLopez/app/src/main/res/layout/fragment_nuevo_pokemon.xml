@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".NuevoPokemonFragment">
+
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nombre"
+        android:autofillHints="Nombre"
+        android:inputType="text" />
+    <EditText
+        android:id="@+id/descripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripcion"
+        android:autofillHints="Description"
+        android:inputType="text"/>
+    <EditText
+        android:id="@+id/atk1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ataque 1"
+        android:autofillHints="Ataque 1"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/atk2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ataque 2"
+        android:autofillHints="Ataque 2"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/atk3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ataque 3"
+        android:autofillHints="Ataque 3"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/atk4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ataque 4"
+        android:autofillHints="Ataque 4"
+        android:inputType="text"/>
+    <Button
+        android:id="@+id/crear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CREAR"/>
+</LinearLayout>
+
+</ScrollView>

@@ -1,5 +1,6 @@
-package com.example.pokedex;
+package com.example.pokedex.data;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
+import com.example.pokedex.R;
 import com.example.pokedex.databinding.FragmentRecyclerPokedexBinding;
-import com.example.pokedex.databinding.ViewholderElementoBinding;
+import com.example.pokedex.databinding.ViewholderPokemonBinding;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +34,7 @@ public class RecyclerPokedexFragment extends Fragment {
 
 
     private FragmentRecyclerPokedexBinding binding;
-    private ElementosViewModel elementosViewModel;
+    private PokemonsViewModel pokemonsViewModel;
     private NavController navController;
 
 
@@ -44,22 +47,17 @@ public class RecyclerPokedexFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        elementosViewModel = new ViewModelProvider(requireActivity()).get(ElementosViewModel.class);
+        pokemonsViewModel = new ViewModelProvider(requireActivity()).get(PokemonsViewModel.class);
         navController = Navigation.findNavController(view);
 
         // crear el Adaptador
-        ElementosAdapter elementosAdapter = new ElementosAdapter();
+        PokemonsAdapter pokemonsAdapter = new PokemonsAdapter();
 
         // asociar el Adaptador con el RecyclerView
-        binding.recyclerView.setAdapter(elementosAdapter);
+        binding.recyclerView.setAdapter(pokemonsAdapter);
 
         // obtener el array de Elementos, y pasarselo al Adaptador
-        elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer<List<Elemento>>() {
-            @Override
-            public void onChanged(List<Elemento> elementos) {
-                elementosAdapter.establecerLista(elementos);
-            }
-        });
+        pokemonsViewModel.obtener().observe(getViewLifecycleOwner(), pokemonsAdapter::establecerLista);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP | ItemTouchHelper.DOWN,
@@ -73,51 +71,46 @@ public class RecyclerPokedexFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int posicion = viewHolder.getAdapterPosition();
-                Elemento elemento = elementosAdapter.obtenerElemento(posicion);
-                elementosViewModel.eliminar(elemento);
+                Pokemon pokemon = pokemonsAdapter.obtenerElemento(posicion);
+                pokemonsViewModel.eliminar(pokemon);
 
             }
         }).attachToRecyclerView(binding.recyclerView);
 
     }
 
-    class ElementosAdapter extends RecyclerView.Adapter<ElementoViewHolder> {
+    class PokemonsAdapter extends RecyclerView.Adapter<PokemonViewHolder> {
 
         // referencia al Array que obtenemos del ViewModel
-        List<Elemento> elementos;
+        List<Pokemon> pokemons;
 
         // crear un nuevo ViewHolder
         @NonNull
         @Override
-        public ElementoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new ElementoViewHolder(ViewholderElementoBinding.inflate(getLayoutInflater(), parent, false));
+        public PokemonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new PokemonViewHolder(ViewholderPokemonBinding.inflate(getLayoutInflater(), parent, false));
         }
 
         // rellenar un ViewHolder en una posición del Recycler con los datos del elemento que
         // esté en esa misma posición en el Array
         @Override
-        public void onBindViewHolder(@NonNull ElementoViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull PokemonViewHolder holder, int position) {
 
-            Elemento elemento = elementos.get(position);
+            Pokemon pokemon = pokemons.get(position);
 
-            holder.binding.nombre.setText(elemento.nombre);
-            holder.binding.valoracion.setRating(elemento.valoracion);
+            holder.binding.nombre.setText(pokemon.nombre.toUpperCase(Locale.ROOT));
+            holder.binding.valoracion.setRating(pokemon.poder);
+            holder.binding.image.setImageResource(pokemon.imagen);
 
-            holder.binding.valoracion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                    if (fromUser) {
-                        elementosViewModel.actualizar(elemento, rating);
-                    }
+            holder.binding.valoracion.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+                if (fromUser) {
+                    pokemonsViewModel.actualizar(pokemon, rating);
                 }
             });
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    elementosViewModel.seleccionar(elemento);
-                    navController.navigate(R.id.action_recyclerPokedexFragment_to_mostrarElementoFragment);
-                }
+            holder.itemView.setOnClickListener(v -> {
+                pokemonsViewModel.seleccionar(pokemon);
+                navController.navigate(R.id.action_recyclerPokedexFragment_to_mostrarElementoFragment);
             });
 
         }
@@ -125,25 +118,26 @@ public class RecyclerPokedexFragment extends Fragment {
         // informar al Recycler de cuántos elementos habrá en la lista
         @Override
         public int getItemCount() {
-            return elementos != null ? elementos.size() : 0;
+            return pokemons != null ? pokemons.size() : 0;
         }
 
         // establecer la referencia a la lista, y notificar al Recycler para que se regenere
-        public void establecerLista(List<Elemento> elementos) {
-            this.elementos = elementos;
+        @SuppressLint("NotifyDataSetChanged")
+        public void establecerLista(List<Pokemon> pokemons) {
+            this.pokemons = pokemons;
             notifyDataSetChanged();
         }
 
-        public Elemento obtenerElemento(int posicion) {
-            return elementos.get(posicion);
+        public Pokemon obtenerElemento(int posicion) {
+            return pokemons.get(posicion);
         }
     }
 
     // Clase para inicializar el ViewBinding en los ViewHolder
-    class ElementoViewHolder extends RecyclerView.ViewHolder {
-        private final ViewholderElementoBinding binding;
+    static class PokemonViewHolder extends RecyclerView.ViewHolder {
+        private final ViewholderPokemonBinding binding;
 
-        public ElementoViewHolder(ViewholderElementoBinding binding) {
+        public PokemonViewHolder(ViewholderPokemonBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

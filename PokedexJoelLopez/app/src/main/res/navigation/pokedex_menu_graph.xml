@@ -17,7 +17,7 @@
     <include app:graph="@navigation/nav_graph" />
     <fragment
         android:id="@+id/pokedexFragment"
-        android:name="com.example.pokedex.RecyclerPokedexFragment"
+        android:name="com.example.pokedex.data.RecyclerPokedexFragment"
         android:label="fragment_pokedex"
         tools:layout="@layout/fragment_recycler_pokedex" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/mostrarElementoFragment"
-        android:name="com.example.pokedex.MostrarElementoFragment"
+        android:name="com.example.pokedex.data.MostrarPokemonFragment"
         android:label="fragment_mostrar_elemento"
-        tools:layout="@layout/fragment_mostrar_elemento" />
+        tools:layout="@layout/fragment_mostrar_pokemon" />
 </navigation>
