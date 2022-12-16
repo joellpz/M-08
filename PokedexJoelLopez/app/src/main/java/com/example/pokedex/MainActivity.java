@@ -1,11 +1,7 @@
 package com.example.pokedex;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.pokedex.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +13,9 @@ public class MainActivity extends AppCompatActivity {
 }
 //T ODO Navigation (usando NavController) 2 Pantallas minimo
 //T ODO Elementos de Menú (1 mínimo) Appbar, NavView,BottomNavView...
-//TODO Model-View-ViewModel Usarlo para acceso a datos.
-//TODO RecyclerView (Interacción con el ViewHolder)
-//TODO Usar Room para introducir y guardar datos.
+//T ODO Model-View-ViewModel Usarlo para acceso a datos.
+//T ODO RecyclerView (Interacción con el ViewHolder)
+//T ODO Usar Room para introducir y guardar datos.
+//T ODO HACER FILTRO POR PODER
+//T ODO PANTALLA DE USUARIO
+//T ODO MIRAR SI HAY ALGUNA MANERA DE QUE EN EL FORMULARIO NO SE DESCUAJERINGUE t odo

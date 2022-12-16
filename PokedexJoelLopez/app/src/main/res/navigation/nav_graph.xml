@@ -16,7 +16,7 @@
     </fragment>
     <activity
         android:id="@+id/pokedexActivity"
-        android:name="com.example.pokedex.PokedexActivity"
+        android:name="com.example.pokedex.PokedexMenuActivity"
         android:label="PokedexActivity" />
     <fragment
         android:id="@+id/bienvenidoFragment"
