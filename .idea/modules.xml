@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/M-08.iml" filepath="$PROJECT_DIR$/.idea/M-08.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FireBase9.iml" filepath="$PROJECT_DIR$/.idea/modules/FireBase9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FireBase9.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FireBase9.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FireBase9.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FireBase9.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FireBase9.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FireBase9.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FireBase9.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FireBase9.app.unitTest.iml" />
     </modules>
   </component>
 </project>
