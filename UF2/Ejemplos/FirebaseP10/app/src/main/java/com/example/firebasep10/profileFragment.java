@@ -19,14 +19,15 @@ import android.view.ViewGroup;
  */
 public class profileFragment extends Fragment {
 
-        NavController navController;   // <-----------------
+    NavController navController;   // <-----------------
 
-        public profileFragment() {}
+    public profileFragment() {
+    }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_profile, container, false);
-        }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
 
     @Override
     public void onViewCreated(@NonNull View view,
@@ -35,4 +36,4 @@ public class profileFragment extends Fragment {
 
         navController = Navigation.findNavController(view);  // <-----------------
     }
-    }
+}

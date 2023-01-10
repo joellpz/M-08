@@ -14,14 +14,14 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link signOutFragment# newInstance} factory method to
+ * Use the {@link SignOutFragment# newInstance} factory method to
  * create an instance of this fragment.
  */
-public class signOutFragment extends Fragment {
+public class SignOutFragment extends Fragment {
 
         NavController navController;   // <-----------------
 
-        public signOutFragment() {}
+        public SignOutFragment() {}
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
