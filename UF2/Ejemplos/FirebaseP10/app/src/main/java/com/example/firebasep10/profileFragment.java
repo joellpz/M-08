@@ -11,6 +11,12 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,10 +25,11 @@ import android.view.ViewGroup;
  */
 public class profileFragment extends Fragment {
 
-    NavController navController;   // <-----------------
+    ImageView photoImageView;
+    TextView displayNameTextView, emailTextView;
 
-    public profileFragment() {
-    }
+    public profileFragment() {}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,10 +37,20 @@ public class profileFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        navController = Navigation.findNavController(view);  // <-----------------
+        photoImageView = view.findViewById(R.id.photoImageView);
+        displayNameTextView = view.findViewById(R.id.displayNameTextView);
+        emailTextView = view.findViewById(R.id.emailTextView);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user != null){
+            displayNameTextView.setText(user.getDisplayName());
+            emailTextView.setText(user.getEmail());
+
+            Glide.with(requireView()).load(user.getPhotoUrl()).into(photoImageView);
+        }
     }
 }
