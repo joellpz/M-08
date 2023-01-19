@@ -78,7 +78,7 @@ public class homeFragment extends Fragment {
             holder.authorTextView.setText(post.author);
             holder.contentTextView.setText(post.content);
             //TODO ALOMEJOR FALLA AQUI
-            holder.dateItemView.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date(String.valueOf(post.timestamp))));
+            //holder.dateItemView.setText(new SimpleDateFormat("dd-MM-yyyy").format(new Date(String.valueOf(post.timestamp))));
 
             // Gestion de likes
             final String postKey = getSnapshots().getSnapshot(position).getId();
