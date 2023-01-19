@@ -17,10 +17,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Date;
 
 public class newPostFragment extends Fragment {
 
@@ -63,9 +66,9 @@ public class newPostFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Post post;
         if (user.getPhotoUrl()!=null){
-            post = new Post(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), postContent);
+            post = new Post(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), postContent,  Timestamp.now());
         }else{
-            post = new Post(user.getUid(), user.getDisplayName(), null, postContent);
+            post = new Post(user.getUid(), user.getDisplayName(), null, postContent, Timestamp.now());
         }
 
 
