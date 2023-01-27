@@ -97,3 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 }
+
+//TODO Botó d'esborrar els propis posts
+//TODO Perfil amb foto i nom per als usuaris que es registren amb mail i contrassenya
+// Permitir que puedan ponerse una foto de perfil subida desde la galeria
+
+//TODO Comentaris al post
+//TODO Funció "forward" o "retweet"
+//TODO Etiquetes o hashtags als posts
+//TODO Filtrar els posts per contingut, o etiqueta, o autor etc
