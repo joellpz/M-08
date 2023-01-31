@@ -130,10 +130,9 @@ public class newPostFragment extends Fragment {
                 }
             }
         });
-        System.out.println(myValue[0]+"++++++++++++++++++++");
     }
 
-    private void pujaIguardarEnFirestore(final String postText) {
+    protected void pujaIguardarEnFirestore(final String postText) {
         FirebaseStorage.getInstance().getReference(mediaTipo + "/" +
                         UUID.randomUUID())
                 .putFile(mediaUri)
@@ -142,7 +141,7 @@ public class newPostFragment extends Fragment {
                 .addOnSuccessListener(url -> guardarEnFirestore(postText, url.toString()));
     }
 
-    private final ActivityResultLauncher<String> galeria =
+    protected final ActivityResultLauncher<String> galeria =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
                 appViewModel.setMediaSeleccionado(uri, mediaTipo);
             });
@@ -165,7 +164,7 @@ public class newPostFragment extends Fragment {
                 }
             });
 
-    private void seleccionarImagen() {
+    public void seleccionarImagen() {
         mediaTipo = "image";
         galeria.launch("image/*");
     }

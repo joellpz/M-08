@@ -55,25 +55,6 @@ public class homeFragment extends Fragment {
 
         RecyclerView postsRecyclerView = view.findViewById(R.id.postsRecyclerView);
 
-        /*new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
-                ItemTouchHelper.UP | ItemTouchHelper.DOWN,
-                ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
-
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return true;
-            }
-
-            @Override
-            public void onSwiped(@NonNull PostsAdapter.PostViewHolder viewHolder, int direction) {
-                int posicion = viewHolder. ();
-                Post post = PostsAdapter.obtenerElemento(posicion);
-                elementosViewModel.eliminar(elemento);
-
-            }
-        }).attachToRecyclerView(binding.recyclerView);*/
-
-
         Query query = FirebaseFirestore.getInstance().collection("posts").limit(50).orderBy("timestamp", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
@@ -109,7 +90,6 @@ public class homeFragment extends Fragment {
                 holder.trashImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //System.out.println(post.docid+"*******************************************************");
                         FirebaseFirestore.getInstance().collection("posts").document(post.docid).delete();
                     }
                 });

@@ -21,6 +21,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,10 +33,11 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public class registerFragment extends Fragment {
 
-    private EditText emailEditText, passwordEditText;
+    private EditText emailEditText, passwordEditText, nameEditText;
     NavController navController;
     private Button registerButton;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
 
     public registerFragment() {
     }
@@ -50,6 +55,7 @@ public class registerFragment extends Fragment {
 
         emailEditText = view.findViewById(R.id.emailEditText);
         passwordEditText = view.findViewById(R.id.passwordEditText);
+        nameEditText = view.findViewById(R.id.nameEditText);
 
         registerButton = view.findViewById(R.id.registerButton);
 
@@ -61,6 +67,7 @@ public class registerFragment extends Fragment {
 
         });
         mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
     }
 
     private void crearCuenta() {
@@ -70,12 +77,19 @@ public class registerFragment extends Fragment {
 
         registerButton.setEnabled(false);
 
+
         mAuth.createUserWithEmailAndPassword(emailEditText.getText().toString(), passwordEditText.getText().toString())
                 .addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            actualizarUI(mAuth.getCurrentUser());
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            actualizarUI(user);
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("id", user.getUid());
+                            userData.put("profileImage", null);
+                            userData.put("profileName", nameEditText.getText().toString());
+                            mFirestore.collection("users").document(user.getUid()).set(userData);
                         } else {
                             Snackbar.make(requireView(), "Error: " + task.getException(), Snackbar.LENGTH_LONG).show();
 
