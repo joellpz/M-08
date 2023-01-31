@@ -1,5 +1,3 @@
-
-
 package com.example.firebasep10;
 
 import android.os.Bundle;
@@ -9,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -38,12 +37,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+        /*binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment, R.id.profileFragment, R.id.signOutFragment
-        )
+        mAppBarConfiguration = new AppBarConfiguration.Builder()
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -55,26 +60,27 @@ public class MainActivity extends AppCompatActivity {
         final TextView name = header.findViewById(R.id.displayNameTextView);
         final TextView email = header.findViewById(R.id.emailTextView);
 
-        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+        FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
 
-                if(user != null){
-                    if(user.getPhotoUrl() != null){
-                        Glide.with(MainActivity.this)
-                                .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
-                                .circleCrop()
-                                .into(photo);
-                    }
-                    name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                    email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            if(user != null){
+                if(user.getPhotoUrl() != null){
+                    Glide.with(MainActivity.this)
+                            .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                            .circleCrop()
+                            .into(photo);
+                }else{
+                   photo.setImageResource(R.drawable.ic_menu_gallery);
                 }
+                name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
             }
         });
+
         FirebaseFirestore.getInstance().setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
                 .setPersistenceEnabled(false)
                 .build());
+
     }
 
     @Override
