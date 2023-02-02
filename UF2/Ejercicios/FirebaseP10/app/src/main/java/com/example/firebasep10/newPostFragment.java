@@ -52,6 +52,8 @@ public class newPostFragment extends Fragment {
     String mediaTipo;
     Uri mediaUri;
 
+    Post post;
+
     private NavController navController;
 
     @Override
@@ -98,38 +100,46 @@ public class newPostFragment extends Fragment {
     }
 
     private void guardarEnFirestore(String postContent, String mediaUrl) {
-        final String[] myValue = new String[1];
+        System.out.println("GUARDAR EN FIRESTORE****************************************************************");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Post post = new Post(user.getUid(), user.getDisplayName(), (user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : "R.drawable.user"), postContent, mediaUrl, mediaTipo, Timestamp.now());
-        FirebaseFirestore.getInstance().collection("posts")
-                .add(post)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        FirebaseFirestore.getInstance().collection("users").document(user.getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        documentReference.update("docid", documentReference.getId());
-                        navController.popBackStack();
-                        appViewModel.setMediaSeleccionado(null, null);
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        String userPhoto, author = null;
+                        if (documentSnapshot.exists()) {
+
+                            if (documentSnapshot.get("profileName") != null)
+                                author = user.getEmail();
+                            else author = user.getEmail();
+
+                            if (documentSnapshot.get("profilePhoto") != null) {
+                                System.out.println(documentSnapshot.get("profilePhoto").toString() + "+++ ++++++++++++++++++++++++++++++++");
+                                userPhoto = documentSnapshot.get("profilePhoto").toString();
+                            } else {
+                                userPhoto = "R.drawable.user";
+                            }
+                        } else {
+                            author = user.getDisplayName();
+                            userPhoto = user.getPhotoUrl().toString();
+                        }
+                        post = new Post(user.getUid(), author, userPhoto, postContent, mediaUrl, mediaTipo, Timestamp.now());
+                        FirebaseFirestore.getInstance().collection("posts")
+                                .add(post)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        documentReference.update("docid", documentReference.getId());
+                                        navController.popBackStack();
+                                        appViewModel.setMediaSeleccionado(null, null);
+                                    }
+                                });
                     }
+
+
                 });
 
-
-        Query query = FirebaseFirestore.getInstance().collection("posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(1);
-
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot result = task.getResult();
-                    if (!result.isEmpty()) {
-                        // Get the last document
-                        System.out.println(result.getDocuments().get(0));
-                        post.setDocid(String.valueOf(result.getDocuments().get(0)));
-                        // Do something with the last document
-                        // ...
-                    }
-                }
-            }
-        });
     }
 
     protected void pujaIguardarEnFirestore(final String postText) {

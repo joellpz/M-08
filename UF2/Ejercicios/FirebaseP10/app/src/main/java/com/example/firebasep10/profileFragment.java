@@ -27,6 +27,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.net.URL;
 import java.util.UUID;
 
 /**
@@ -40,7 +41,6 @@ public class profileFragment extends Fragment {
     TextView displayNameTextView, emailTextView;
     FirebaseUser user;
     public AppViewModel appViewModel;
-    Uri mediaUri;
 
     public profileFragment() {
     }
@@ -53,7 +53,6 @@ public class profileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final boolean[] email = {false};
         super.onViewCreated(view, savedInstanceState);
 
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
@@ -70,18 +69,19 @@ public class profileFragment extends Fragment {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             displayNameTextView.setText(documentSnapshot.get("profileName").toString());
-                            if (documentSnapshot.get("profileImage") == null) {
+                            if (documentSnapshot.get("profilePhoto") == null) {
                                 Glide.with(getContext()).load(R.drawable.user).circleCrop().into(photoImageView);
                             } else {
-                                Glide.with(getContext()).load(documentSnapshot.get("profileImage")).circleCrop().into(photoImageView);
+                                Glide.with(getContext()).load(documentSnapshot.get("profilePhoto")).circleCrop().into(photoImageView);
                             }
-                            view.findViewById(R.id.photoImageView).setOnClickListener(v -> galeria.launch("usersPhoto/"));
-                            appViewModel.mediaSeleccionado.observe(getViewLifecycleOwner(), media -> {
-                                Glide.with(getContext()).load(media.uri).into((ImageView) view.findViewById(R.id.photoImageView));
-                                System.out.println(mediaUri);
-                                pujaIguardarEnFirestore(mediaUri);
-                            });
-                        }else{
+                            view.findViewById(R.id.photoImageView).setOnClickListener(v -> galeria.launch("image/*"));
+                                appViewModel.mediaSeleccionado.observe(getViewLifecycleOwner(), media -> {
+                                    if (media.uri != null) {
+                                        Glide.with(getContext()).load(media.uri).into((ImageView) view.findViewById(R.id.photoImageView));
+                                        pujaIguardarEnFirestore(media.uri);
+                                    }
+                                });
+                        } else {
                             displayNameTextView.setText(user.getDisplayName());
                             emailTextView.setText(user.getEmail());
 
@@ -120,8 +120,10 @@ public class profileFragment extends Fragment {
         }*/
     }
 
-    protected void changeProfilePhoto() {
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        appViewModel.setMediaSeleccionado(null, null);
     }
 
     protected void pujaIguardarEnFirestore(final Uri mediaUri) {

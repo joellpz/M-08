@@ -87,7 +87,7 @@ public class registerFragment extends Fragment {
                             actualizarUI(user);
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("id", user.getUid());
-                            userData.put("profileImage", null);
+                            userData.put("profilePhoto", null);
                             userData.put("profileName", nameEditText.getText().toString());
                             mFirestore.collection("users").document(user.getUid()).set(userData);
                         } else {
