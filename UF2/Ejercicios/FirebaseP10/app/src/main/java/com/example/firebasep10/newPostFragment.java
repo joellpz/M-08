@@ -105,40 +105,30 @@ public class newPostFragment extends Fragment {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore.getInstance().collection("users").document(user.getUid())
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        String userPhoto, author = null;
-                        if (documentSnapshot.exists()) {
+                .addOnSuccessListener(documentSnapshot -> {
+                    String userPhoto, author;
+                    if (documentSnapshot.exists()) {
+                        if (documentSnapshot.get("profileName") != null)
+                            author = documentSnapshot.get("profileName").toString();
+                        else author = user.getEmail();
 
-                            if (documentSnapshot.get("profileName") != null)
-                                author = user.getEmail();
-                            else author = user.getEmail();
-
-                            if (documentSnapshot.get("profilePhoto") != null) {
-                                System.out.println(documentSnapshot.get("profilePhoto").toString() + "+++ ++++++++++++++++++++++++++++++++");
-                                userPhoto = documentSnapshot.get("profilePhoto").toString();
-                            } else {
-                                userPhoto = "R.drawable.user";
-                            }
+                        if (documentSnapshot.get("profilePhoto") != null) {
+                            userPhoto = documentSnapshot.get("profilePhoto").toString();
                         } else {
-                            author = user.getDisplayName();
-                            userPhoto = user.getPhotoUrl().toString();
+                            userPhoto = "R.drawable.user";
                         }
-                        post = new Post(user.getUid(), author, userPhoto, postContent, mediaUrl, mediaTipo, Timestamp.now());
-                        FirebaseFirestore.getInstance().collection("posts")
-                                .add(post)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        documentReference.update("docid", documentReference.getId());
-                                        navController.popBackStack();
-                                        appViewModel.setMediaSeleccionado(null, null);
-                                    }
-                                });
+                    } else {
+                        author = user.getDisplayName();
+                        userPhoto = user.getPhotoUrl().toString();
                     }
-
-
+                    post = new Post(user.getUid(), author, userPhoto, postContent, mediaUrl, mediaTipo, Timestamp.now(),null);
+                    FirebaseFirestore.getInstance().collection("posts")
+                            .add(post)
+                            .addOnSuccessListener(documentReference -> {
+                                documentReference.update("docid", documentReference.getId());
+                                navController.popBackStack();
+                                appViewModel.setMediaSeleccionado(null, null);
+                            });
                 });
 
     }
@@ -153,19 +143,11 @@ public class newPostFragment extends Fragment {
     }
 
     protected final ActivityResultLauncher<String> galeria =
-            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
-                appViewModel.setMediaSeleccionado(uri, mediaTipo);
-            });
+            registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> appViewModel.setMediaSeleccionado(uri, mediaTipo));
     private final ActivityResultLauncher<Uri> camaraFotos =
-            registerForActivityResult(new ActivityResultContracts.TakePicture(),
-                    isSuccess -> {
-                        appViewModel.setMediaSeleccionado(mediaUri, "image");
-                    });
+            registerForActivityResult(new ActivityResultContracts.TakePicture(), isSuccess -> appViewModel.setMediaSeleccionado(mediaUri, "image"));
     private final ActivityResultLauncher<Uri> camaraVideos =
-            registerForActivityResult(new ActivityResultContracts.TakeVideo(), isSuccess
-                    -> {
-                appViewModel.setMediaSeleccionado(mediaUri, "video");
-            });
+            registerForActivityResult(new ActivityResultContracts.TakeVideo(), isSuccess -> appViewModel.setMediaSeleccionado(mediaUri, "video"));
     private final ActivityResultLauncher<Intent> grabadoraAudio =
             registerForActivityResult(new
                     ActivityResultContracts.StartActivityForResult(), result -> {
@@ -208,7 +190,7 @@ public class newPostFragment extends Fragment {
                             ".mp4",
                             requireContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES)));
             camaraVideos.launch(mediaUri);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 

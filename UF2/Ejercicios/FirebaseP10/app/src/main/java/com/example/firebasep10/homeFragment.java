@@ -22,15 +22,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.Objects;
 
 public class homeFragment extends Fragment {
 
@@ -86,13 +93,10 @@ public class homeFragment extends Fragment {
             holder.dateTextView.setText(new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(post.timestamp.toDate()).toString());
             if (!post.uid.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                 holder.trashImageView.setVisibility(View.GONE);
-            }else{
-                holder.trashImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FirebaseFirestore.getInstance().collection("posts").document(post.docid).delete();
-                    }
-                });
+                holder.retweetImageView.setOnClickListener(view -> retweetPost(post));
+            } else {
+                holder.retweetImageView.setVisibility(View.GONE);
+                holder.trashImageView.setOnClickListener(view -> FirebaseFirestore.getInstance().collection("posts").document(post.docid).delete());
             }
 
             // Gestion de likes
@@ -103,12 +107,10 @@ public class homeFragment extends Fragment {
             else
                 holder.likeImageView.setImageResource(R.drawable.like_off);
             holder.numLikesTextView.setText(String.valueOf(post.likes.size()));
-            holder.likeImageView.setOnClickListener(view -> {
-                FirebaseFirestore.getInstance().collection("posts")
-                        .document(postKey)
-                        .update("likes." + uid, post.likes.containsKey(uid) ?
-                                FieldValue.delete() : true);
-            });
+            holder.likeImageView.setOnClickListener(view -> FirebaseFirestore.getInstance().collection("posts")
+                    .document(postKey)
+                    .update("likes." + uid, post.likes.containsKey(uid) ?
+                            FieldValue.delete() : true));
             // Miniatura de media
             if (post.mediaUrl != null) {
                 holder.mediaImageView.setVisibility(View.VISIBLE);
@@ -125,12 +127,65 @@ public class homeFragment extends Fragment {
                 holder.mediaImageView.setVisibility(View.GONE);
             }
 
+            if (post.retweetFrom != null) {
+                holder.retweetTextView.setText(post.retweetFrom + " dijo:");
+            } else {
+                holder.retweetTextView.setVisibility(View.GONE);
+            }
+        }
 
+        private void retweetPost(Post post) {
+            Task<DocumentSnapshot> copiedPost = FirebaseFirestore.getInstance().collection("posts").document(post.docid).get();
+            copiedPost.addOnSuccessListener(documentSnapshot -> {
+                Map<String, Object> data = documentSnapshot.getData();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore.getInstance().collection("users").document(user.getUid())
+                        .get()
+                        .addOnSuccessListener(documentSnapshot1 -> {
+                            String userPhoto, author;
+                            if (documentSnapshot1.exists()) {
+                                if (documentSnapshot1.get("profileName") != null)
+                                    author = documentSnapshot1.get("profileName").toString();
+                                else author = user.getEmail();
+
+                                if (documentSnapshot1.get("profilePhoto") != null) {
+                                    userPhoto = documentSnapshot1.get("profilePhoto").toString();
+                                } else {
+                                    userPhoto = "R.drawable.user";
+                                }
+                            } else {
+                                author = user.getDisplayName();
+                                userPhoto = user.getPhotoUrl().toString();
+                            }
+                            Post post1 = new Post(
+                                    user.getUid(),
+                                    author,
+                                    userPhoto,
+                                    (data.get("content") != null ? data.get("content").toString() : null),
+                                    (data.get("mediaUrl") != null ? data.get("mediaUrl").toString() : null),
+                                    (data.get("mediaType") != null ? data.get("mediaType").toString() : null),
+                                    Timestamp.now(),
+                                    data.get("author").toString()
+                            );
+
+                            FirebaseFirestore.getInstance().collection("posts")
+                                    .add(post1)
+                                    .addOnSuccessListener(documentReference -> {
+                                        documentReference.update("docid", documentReference.getId());
+                                        appViewModel.setMediaSeleccionado(null, null);
+
+                                        //SCROLL UP
+                                        int viewId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+                                        navController.popBackStack();
+                                        navController.navigate(viewId);
+                                    });
+                        });
+            });
         }
 
         class PostViewHolder extends RecyclerView.ViewHolder {
-            ImageView authorPhotoImageView, likeImageView, mediaImageView, trashImageView;
-            TextView authorTextView, contentTextView, numLikesTextView, dateTextView;
+            ImageView authorPhotoImageView, likeImageView, mediaImageView, trashImageView, retweetImageView;
+            TextView authorTextView, contentTextView, numLikesTextView, dateTextView, retweetTextView;
 
             PostViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -142,6 +197,8 @@ public class homeFragment extends Fragment {
                 numLikesTextView = itemView.findViewById(R.id.numLikesTextView);
                 dateTextView = itemView.findViewById(R.id.dateTextView);
                 trashImageView = itemView.findViewById(R.id.trashImageView);
+                retweetImageView = itemView.findViewById(R.id.retweetImageView);
+                retweetTextView = itemView.findViewById(R.id.retweetTextView);
             }
         }
     }
