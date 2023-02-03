@@ -96,7 +96,12 @@ public class homeFragment extends Fragment {
                 holder.retweetImageView.setOnClickListener(view -> retweetPost(post));
             } else {
                 holder.retweetImageView.setVisibility(View.GONE);
-                holder.trashImageView.setOnClickListener(view -> FirebaseFirestore.getInstance().collection("posts").document(post.docid).delete());
+                holder.trashImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseFirestore.getInstance().collection("posts").document(post.docid).delete();
+                    }
+                });
             }
 
             // Gestion de likes
@@ -107,10 +112,12 @@ public class homeFragment extends Fragment {
             else
                 holder.likeImageView.setImageResource(R.drawable.like_off);
             holder.numLikesTextView.setText(String.valueOf(post.likes.size()));
-            holder.likeImageView.setOnClickListener(view -> FirebaseFirestore.getInstance().collection("posts")
-                    .document(postKey)
-                    .update("likes." + uid, post.likes.containsKey(uid) ?
-                            FieldValue.delete() : true));
+            holder.likeImageView.setOnClickListener(view -> {
+                FirebaseFirestore.getInstance().collection("posts")
+                        .document(postKey)
+                        .update("likes." + uid, post.likes.containsKey(uid) ?
+                                FieldValue.delete() : true);
+            });
             // Miniatura de media
             if (post.mediaUrl != null) {
                 holder.mediaImageView.setVisibility(View.VISIBLE);
@@ -134,52 +141,63 @@ public class homeFragment extends Fragment {
             }
         }
 
-        private void retweetPost(Post postToCopy) {
-            Task<DocumentSnapshot> copiedPost = FirebaseFirestore.getInstance().collection("posts").document(postToCopy.docid).get();
-            copiedPost.addOnSuccessListener(documentSnapshot -> {
-                Map<String, Object> data = documentSnapshot.getData();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                FirebaseFirestore.getInstance().collection("users").document(user.getUid())
-                        .get()
-                        .addOnSuccessListener(documentSnapshot1 -> {
-                            String userPhoto, author;
-                            if (documentSnapshot1.exists()) {
-                                if (documentSnapshot1.get("profileName") != null)
-                                    author = documentSnapshot1.get("profileName").toString();
-                                else author = user.getEmail();
+        private void retweetPost(Post post) {
+            Task<DocumentSnapshot> copiedPost = FirebaseFirestore.getInstance().collection("posts").document(post.docid).get();
+            copiedPost.addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    Map<String, Object> data = documentSnapshot.getData();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseFirestore.getInstance().collection("users").document(user.getUid())
+                            .get()
+                            .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    String userPhoto, author = null;
+                                    if (documentSnapshot.exists()) {
+                                        if (documentSnapshot.get("profileName") != null)
+                                            author = documentSnapshot.get("profileName").toString();
+                                        else author = user.getEmail();
 
-                                if (documentSnapshot1.get("profilePhoto") != null) {
-                                    userPhoto = documentSnapshot1.get("profilePhoto").toString();
-                                } else {
-                                    userPhoto = "R.drawable.user";
+                                        if (documentSnapshot.get("profilePhoto") != null) {
+                                            userPhoto = documentSnapshot.get("profilePhoto").toString();
+                                        } else {
+                                            userPhoto = "R.drawable.user";
+                                        }
+                                    } else {
+                                        author = user.getDisplayName();
+                                        userPhoto = user.getPhotoUrl().toString();
+                                    }
+                                    Post post = new Post(
+                                            user.getUid(),
+                                            author,
+                                            userPhoto,
+                                            (data.get("content") != null ? data.get("content").toString() : null),
+                                            (data.get("mediaUrl") != null ? data.get("mediaUrl").toString() : null),
+                                            (data.get("mediaType") != null ? data.get("mediaType").toString() : null),
+                                            Timestamp.now(),
+                                            data.get("author").toString()
+                                    );
+
+                                    FirebaseFirestore.getInstance().collection("posts")
+                                            .add(post)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    documentReference.update("docid", documentReference.getId());
+                                                    appViewModel.setMediaSeleccionado(null, null);
+
+                                                    //SCROLL UP
+                                                    int viewId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
+                                                    navController.popBackStack();
+                                                    navController.navigate(viewId);
+                                                }
+                                            });
                                 }
-                            } else {
-                                author = user.getDisplayName();
-                                userPhoto = user.getPhotoUrl().toString();
-                            }
-                            Post post = new Post(
-                                    user.getUid(),
-                                    author,
-                                    userPhoto,
-                                    (data.get("content") != null ? data.get("content").toString() : null),
-                                    (data.get("mediaUrl") != null ? data.get("mediaUrl").toString() : null),
-                                    (data.get("mediaType") != null ? data.get("mediaType").toString() : null),
-                                    Timestamp.now(),
-                                    data.get("author").toString()
-                            );
 
-                            FirebaseFirestore.getInstance().collection("posts")
-                                    .add(post)
-                                    .addOnSuccessListener(documentReference -> {
-                                        documentReference.update("docid", documentReference.getId());
-                                        appViewModel.setMediaSeleccionado(null, null);
+                            });
+                }
 
-                                        //SCROLL UP
-                                        int viewId = Objects.requireNonNull(navController.getCurrentDestination()).getId();
-                                        navController.popBackStack();
-                                        navController.navigate(viewId);
-                                    });
-                        });
             });
         }
 
