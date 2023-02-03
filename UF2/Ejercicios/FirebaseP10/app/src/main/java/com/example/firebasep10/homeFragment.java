@@ -134,8 +134,8 @@ public class homeFragment extends Fragment {
             }
         }
 
-        private void retweetPost(Post post) {
-            Task<DocumentSnapshot> copiedPost = FirebaseFirestore.getInstance().collection("posts").document(post.docid).get();
+        private void retweetPost(Post postToCopy) {
+            Task<DocumentSnapshot> copiedPost = FirebaseFirestore.getInstance().collection("posts").document(postToCopy.docid).get();
             copiedPost.addOnSuccessListener(documentSnapshot -> {
                 Map<String, Object> data = documentSnapshot.getData();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -157,7 +157,7 @@ public class homeFragment extends Fragment {
                                 author = user.getDisplayName();
                                 userPhoto = user.getPhotoUrl().toString();
                             }
-                            Post post1 = new Post(
+                            Post post = new Post(
                                     user.getUid(),
                                     author,
                                     userPhoto,
@@ -169,7 +169,7 @@ public class homeFragment extends Fragment {
                             );
 
                             FirebaseFirestore.getInstance().collection("posts")
-                                    .add(post1)
+                                    .add(post)
                                     .addOnSuccessListener(documentReference -> {
                                         documentReference.update("docid", documentReference.getId());
                                         appViewModel.setMediaSeleccionado(null, null);
