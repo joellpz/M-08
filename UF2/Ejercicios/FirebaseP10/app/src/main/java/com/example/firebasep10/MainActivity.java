@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //TO DO Botó d'esborrar els propis posts
-//TODO Perfil amb foto i nom per als usuaris que es registren amb mail i contrassenya
+//TO DO Perfil amb foto i nom per als usuaris que es registren amb mail i contrassenya
 // Permitir que puedan ponerse una foto de perfil subida desde la galeria
 
 //TODO Comentaris al post

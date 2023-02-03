@@ -70,6 +70,7 @@ public class registerFragment extends Fragment {
         mFirestore = FirebaseFirestore.getInstance();
     }
 
+    //TODO profile Image
     private void crearCuenta() {
         if (!validarFormulario()) {
             return;

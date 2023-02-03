@@ -99,6 +99,7 @@ public class newPostFragment extends Fragment {
         }
     }
 
+    //TODO Profile Image
     private void guardarEnFirestore(String postContent, String mediaUrl) {
         System.out.println("GUARDAR EN FIRESTORE****************************************************************");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
