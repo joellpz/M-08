@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.firebasep10.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
@@ -62,18 +64,28 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseAuth.getInstance().addAuthStateListener(firebaseAuth -> {
             FirebaseUser user = firebaseAuth.getCurrentUser();
+            //TODO Profile Photo
+            if (user != null) {
+                FirebaseFirestore.getInstance().collection("users").document(user.getUid())
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    name.setText(documentSnapshot.get("profileName").toString());
+                                    if (documentSnapshot.get("profilePhoto") == null) {
+                                        Glide.with(MainActivity.this).load(R.drawable.user).circleCrop().into(photo);
+                                    } else {
+                                        Glide.with(MainActivity.this).load(documentSnapshot.get("profilePhoto")).circleCrop().into(photo);
+                                    }
+                                } else {
+                                    name.setText(user.getDisplayName());
+                                    Glide.with(MainActivity.this).load(user.getPhotoUrl()).into(photo);
+                                }
 
-            if(user != null){
-                if(user.getPhotoUrl() != null){
-                    Glide.with(MainActivity.this)
-                            .load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
-                            .circleCrop()
-                            .into(photo);
-                }else{
-                   photo.setImageResource(R.drawable.ic_menu_gallery);
-                }
-                name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                            }
+                        });
+                email.setText(user.getEmail());
             }
         });
 
@@ -99,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 }
 
 //TO DO Botó d'esborrar els propis posts
-//TO DO Perfil amb foto i nom per als usuaris que es registren amb mail i contrassenya
+//TODO Perfil amb foto i nom per als usuaris que es registren amb mail i contrassenya
 // Permitir que puedan ponerse una foto de perfil subida desde la galeria
 
 //TODO Comentaris al post
