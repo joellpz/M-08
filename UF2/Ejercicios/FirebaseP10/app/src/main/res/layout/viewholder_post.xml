@@ -68,21 +68,16 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/mediaImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            android:adjustViewBounds="true" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/dateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textAlignment="textEnd" />
@@ -93,8 +88,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="6dp"
-                android:src="@drawable/trash"
-                />
+                android:src="@drawable/trash" />
+
+            <ImageView
+                android:id="@+id/mediaImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="true" />
 
         </LinearLayout>
 
