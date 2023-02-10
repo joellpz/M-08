@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MainMenuScreen implements Screen {
+public class GameOverScreen implements Screen {
     final Bird game;
     OrthographicCamera camera;
 
-    public MainMenuScreen(final Bird gam) {
+    public GameOverScreen(final Bird gam) {
         game = gam;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -18,21 +18,21 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0.2f, 0, 0, 1);
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-
-        game.batch.draw(game.manager.get("background.png", Texture.class), 0, 0);
-
-        game.bigFont.draw(game.batch, "Welcome to Puig Bird!!!", 30, 300);
-        game.bigFont.draw(game.batch, "Tap anywhere to begin!",
-                20, 180);
+        game.batch.draw(game.manager.get("background.png",
+                Texture.class), 0, 0);
+        game.bigFont.draw(game.batch, "GAME OVER! ", 220, 300);
+        game.bigFont.draw(game.batch, "Final Score: " + game.lastScore, 180, 180);
+        game.bigFont.draw(game.batch, "Top Score: " + game.topScore, 200, 120);
         game.batch.end();
         if (Gdx.input.justTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new MainMenuScreen(game));
             dispose();
         }
+
     }
 
     @Override
