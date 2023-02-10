@@ -4,75 +4,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="deea43c0-c697-4301-a3a2-3c30eab5a29b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/.idea/FirebaseP9.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/7.1/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/7.1/dependencies-accessors/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/7.1/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/7.1/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/7.1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.idea/modules/app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/google-services.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/local.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/androidTest/java/com/example/firebasep9/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/java/com/example/firebasep9/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/values-night/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP91/app/src/test/java/com/example/firebasep9/ExampleUnitTest.java" beforeDir="false" />
-    </list>
+    <list default="true" id="deea43c0-c697-4301-a3a2-3c30eab5a29b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/dam2a/.android/avd/Nexus_5_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/dam2a/.android/avd/Nexus_5_API_25.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -96,7 +34,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/UF2/Ejemplos/FirebaseP9" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/UF3/Flapyvirds" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
