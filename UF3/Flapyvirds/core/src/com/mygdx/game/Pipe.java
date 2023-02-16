@@ -10,16 +10,18 @@ public class Pipe extends Actor {
     Rectangle bounds;
     boolean upsideDown;
     AssetManager manager;
+    int speed;
 
     Pipe() {
         setSize(64, 230);
         bounds = new Rectangle();
         setVisible(false);
+        setDefaultSpeed();
     }
 
     @Override
     public void act(float delta) {
-        moveBy(-200 * delta, 0);
+        moveBy(speed * delta, 0);
         bounds.set(getX(), getY(), getWidth(), getHeight());
         if (!isVisible())
             setVisible(true);
@@ -33,6 +35,18 @@ public class Pipe extends Actor {
         batch.draw(manager.get(upsideDown ? "pipe_up.png" :
                 "pipe_down.png", Texture.class), getX(), getY());
     }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setDefaultSpeed() {
+        this.speed = -200;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+
 
     public Rectangle getBounds() {
         return bounds;
