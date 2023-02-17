@@ -22,6 +22,7 @@ public class GameScreen implements Screen {
     boolean dead, mamado, isFruit;
 
     Array<Pipe> obstacles;
+    Array<FireBall> fireballs;
     Fruit fruit;
     long lastObstacleTime;
     long lastDinoShotTime;
@@ -142,13 +143,20 @@ public class GameScreen implements Screen {
                 obstacleBeforeFruit++;
             }
         }
+        Iterator<FireBall> fireBallIterator = fireballs.iterator();
+        while (fireBallIterator.hasNext()) {
+            FireBall fireBall = fireBallIterator.next();
+            if (fireBall.getBounds().overlaps(player.getBounds()) && !mamado) {
+                dead = true;
+            }
+        }
 
         // Comprova si les tuberies colisionen amb el jugador
         Iterator<Pipe> iter = obstacles.iterator();
         while (iter.hasNext()) {
             Pipe pipe = iter.next();
             if (TimeUtils.nanoTime() - lastDinoShotTime > 3000000000L) {
-                if (pipe.dino){
+                if (pipe.dino) {
                     shoot(pipe.getY(), pipe.getX());
                     lastDinoShotTime = TimeUtils.nanoTime();
                 }
@@ -223,6 +231,7 @@ public class GameScreen implements Screen {
         fireBall.setX(x);
         fireBall.setY(y);
         fireBall.setManager(game.manager);
+        fireballs.add(fireBall);
         stage.addActor(fireBall);
     }
 
@@ -238,8 +247,8 @@ public class GameScreen implements Screen {
         pipe1.setY(holey - 230);
         pipe1.setUpsideDown(true);
         pipe1.setManager(game.manager);
-        if (true) {
-            //if ((int) (Math.random() * 2) == 1) {
+        //if (true) {
+        if ((int) (Math.random() * 2) == 1) {
             pipe1.setDino(true);
             pipe1.setSize(53, 51);
             pipe1.setY(holey);
