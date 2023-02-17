@@ -27,6 +27,8 @@ public class Bird extends Game {
         manager.load("background.png", Texture.class);
         manager.load("golpe-mortal.png",Texture.class);
         manager.load("mamado_bird.png",Texture.class);
+        manager.load("dino.png",Texture.class);
+        manager.load("fireball.png",Texture.class);
         manager.load("flap.wav", Sound.class);
         manager.load("super-mario-bros.mp3", Sound.class);
         manager.load("fail.wav", Sound.class);

@@ -10,18 +10,30 @@ public class Pipe extends Actor {
     Rectangle bounds;
     boolean upsideDown;
     AssetManager manager;
+    boolean done;
     int speed;
+    boolean dino;
+    boolean sube;
 
     Pipe() {
         setSize(64, 230);
         bounds = new Rectangle();
         setVisible(false);
         setDefaultSpeed();
+        done = false;
     }
 
     @Override
     public void act(float delta) {
-        moveBy(speed * delta, 0);
+        if (dino) {
+            if(sube) moveBy(speed * delta, 100*delta);
+            else moveBy(speed * delta, -100*delta);;
+
+            if (getY() > 480) sube = false;
+            else if (getY() < 10) sube = true;
+        }else{
+            moveBy(speed * delta, 0);
+        }
         bounds.set(getX(), getY(), getWidth(), getHeight());
         if (!isVisible())
             setVisible(true);
@@ -32,8 +44,17 @@ public class Pipe extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(manager.get(upsideDown ? "pipe_up.png" :
+        if (dino) batch.draw(manager.get("dino.png", Texture.class), getX(), getY());
+        else batch.draw(manager.get(upsideDown ? "pipe_up.png" :
                 "pipe_down.png", Texture.class), getX(), getY());
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
+    public void setDino(boolean dino) {
+        this.dino = dino;
     }
 
     public void setSpeed(int speed) {
@@ -43,6 +64,7 @@ public class Pipe extends Actor {
     public void setDefaultSpeed() {
         this.speed = -200;
     }
+
     public int getSpeed() {
         return speed;
     }

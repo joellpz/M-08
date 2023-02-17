@@ -24,8 +24,12 @@ public class GameScreen implements Screen {
     Array<Pipe> obstacles;
     Fruit fruit;
     long lastObstacleTime;
+    long lastDinoShotTime;
     long mamadoTime;
     int obstacleBeforeFruit;
+
+    int level;
+    long timeToAppear = 3500000000L;
 
     float score;
 
@@ -80,7 +84,7 @@ public class GameScreen implements Screen {
         game.batch.end();
 
         //La puntuació augmenta amb el temps de joc
-        score += Gdx.graphics.getDeltaTime();
+        //score += Gdx.graphics.getDeltaTime();
 
         // process user input
         if (Gdx.input.justTouched()) {
@@ -104,7 +108,7 @@ public class GameScreen implements Screen {
             isFruit = true;
             obstacleBeforeFruit = 0;
         }
-        if (mamado && TimeUtils.nanoTime() >= mamadoTime){
+        if (mamado && TimeUtils.nanoTime() >= mamadoTime) {
             mamado = false;
             player.setMamado(false);
             player.remove();
@@ -121,19 +125,34 @@ public class GameScreen implements Screen {
                 player.remove();
                 stage.addActor(player);
                 game.manager.get("super-mario-bros.mp3", Sound.class).play();
+                Iterator<Pipe> iter = obstacles.iterator();
+                while (iter.hasNext()) {
+                    Pipe pipe = iter.next();
+                    pipe.setSpeed(pipe.getSpeed() * 2);
+                }
+
             }
         }
+
+
         // Comprova si cal generar un obstacle nou
-        if (TimeUtils.nanoTime() - lastObstacleTime > 1500000000) {
+        if (TimeUtils.nanoTime() - lastObstacleTime > timeToAppear) {
             spawnObstacle();
-            if (!mamado){
+            if (!mamado) {
                 obstacleBeforeFruit++;
             }
         }
+
         // Comprova si les tuberies colisionen amb el jugador
         Iterator<Pipe> iter = obstacles.iterator();
         while (iter.hasNext()) {
             Pipe pipe = iter.next();
+            if (TimeUtils.nanoTime() - lastDinoShotTime > 3000000000L) {
+                if (pipe.dino){
+                    shoot(pipe.getY(), pipe.getX());
+                    lastDinoShotTime = TimeUtils.nanoTime();
+                }
+            }
             if (pipe.getBounds().overlaps(player.getBounds()) && !mamado) {
                 dead = true;
             }
@@ -142,6 +161,13 @@ public class GameScreen implements Screen {
         iter = obstacles.iterator();
         while (iter.hasNext()) {
             Pipe pipe = iter.next();
+            if (player.getX() > pipe.getX() && pipe.isUpsideDown() && !pipe.done) {
+                score++;
+                pipe.setDone(true);
+                if (score % 5 == 0 && score != 0) {
+                    timeToAppear -= 300000000L;
+                }
+            }
             if (pipe.getX() < -64) {
                 obstacles.removeValue(pipe, true);
             }
@@ -192,7 +218,17 @@ public class GameScreen implements Screen {
         this.fruit = fruit;
     }
 
+    private void shoot(float y, float x) {
+        FireBall fireBall = new FireBall();
+        fireBall.setX(x);
+        fireBall.setY(y);
+        fireBall.setManager(game.manager);
+        stage.addActor(fireBall);
+    }
+
+
     private void spawnObstacle() {
+
 
         // Calcula la alçada de l'obstacle aleatòriament
         float holey = MathUtils.random(50, 230);
@@ -202,26 +238,27 @@ public class GameScreen implements Screen {
         pipe1.setY(holey - 230);
         pipe1.setUpsideDown(true);
         pipe1.setManager(game.manager);
-
-        Pipe pipe2 = new Pipe();
-        pipe2.setX(800);
-        pipe2.setY(holey + 200);
-        pipe2.setUpsideDown(false);
-        pipe2.setManager(game.manager);
-
-
+        if (true) {
+            //if ((int) (Math.random() * 2) == 1) {
+            pipe1.setDino(true);
+            pipe1.setSize(53, 51);
+            pipe1.setY(holey);
+        } else {
+            Pipe pipe2 = new Pipe();
+            pipe2.setX(800);
+            pipe2.setY(holey + 200);
+            pipe2.setUpsideDown(false);
+            pipe2.setManager(game.manager);
+            if (mamado) pipe2.setSpeed(pipe2.getSpeed() * 2);
+            obstacles.add(pipe2);
+            stage.addActor(pipe2);
+        }
         if (mamado) {
             pipe1.setSpeed(pipe1.getSpeed() * 2);
-            pipe2.setSpeed(pipe2.getSpeed() * 2);
-        } else {
-            pipe1.setDefaultSpeed();
-            pipe2.setDefaultSpeed();
         }
-
         obstacles.add(pipe1);
         stage.addActor(pipe1);
-        obstacles.add(pipe2);
-        stage.addActor(pipe2);
+
         lastObstacleTime = TimeUtils.nanoTime();
     }
 }
