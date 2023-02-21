@@ -49,6 +49,7 @@ public class GameScreen implements Screen {
 
         // create the obstacles array and spawn the first obstacle
         obstacles = new Array<>();
+        fireballs = new Array<>();
         spawnObstacle();
 
         score = 0;
@@ -126,9 +127,7 @@ public class GameScreen implements Screen {
                 player.remove();
                 stage.addActor(player);
                 game.manager.get("super-mario-bros.mp3", Sound.class).play();
-                Iterator<Pipe> iter = obstacles.iterator();
-                while (iter.hasNext()) {
-                    Pipe pipe = iter.next();
+                for (Pipe pipe : obstacles) {
                     pipe.setSpeed(pipe.getSpeed() * 2);
                 }
 
@@ -143,9 +142,7 @@ public class GameScreen implements Screen {
                 obstacleBeforeFruit++;
             }
         }
-        Iterator<FireBall> fireBallIterator = fireballs.iterator();
-        while (fireBallIterator.hasNext()) {
-            FireBall fireBall = fireBallIterator.next();
+        for (FireBall fireBall : fireballs) {
             if (fireBall.getBounds().overlaps(player.getBounds()) && !mamado) {
                 dead = true;
             }
